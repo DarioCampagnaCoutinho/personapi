@@ -9,6 +9,9 @@ import com.cam.personapi.dto.response.MessageResponseDto;
 import com.cam.personapi.entity.Person;
 import com.cam.personapi.repository.PersonRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PersonService {
 	
@@ -29,4 +32,9 @@ public class PersonService {
 				.build();
 	}
 
+	public List<PersonDTO> findAll() {
+		List<Person> allPeople = personRepository.findAll();
+		return allPeople.stream().map(personMapper::toDTO)
+				.collect(Collectors.toList());
+	}
 }
